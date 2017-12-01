@@ -16,36 +16,45 @@
 
 # ------------------------------------------------------------------------
 
-FROM wso2/wso2base:latest
-MAINTAINER dev@wso2.org
-
+FROM ubuntu:16.04
+MAINTAINER WSO2 Docker Maintainers "dev@wso2.org"
 ENV DEBIAN_FRONTEND noninteractive
 
-# Build time arguments
-ARG WSO2_SERVER
-ARG WSO2_SERVER_VERSION
-ARG WSO2_SERVER_PROFILE
-ARG WSO2_ENVIRONMENT
-ARG HTTP_PACK_SERVER
-ARG PLATFORM
+# defined arguments and defaults
+ARG FILES=./files
+ARG INSTALLATION_DIRECTORY=/home
+ARG WSO2_SERVER=wso2das
+ARG WSO2_SERVER_VERSION=3.1.0
+ARG WSO2_SERVER_PACK=${WSO2_SERVER}-${WSO2_SERVER_VERSION}.zip
+ARG JDK_ARCHIVE=jdk-8u*-linux-x64.tar.gz
+ARG JAVA_HOME=${INSTALLATION_DIRECTORY}/java
 
-# Carbon server information
-ENV WSO2_SERVER=${WSO2_SERVER:-wso2das} \
-    WSO2_SERVER_VERSION=${WSO2_SERVER_VERSION:-3.0.1} \
-    WSO2_SERVER_PROFILE=${WSO2_SERVER_PROFILE:-default} \
-    WSO2_ENVIRONMENT=${WSO2_ENVIRONMENT:-dev} \
-    HTTP_PACK_SERVER=${HTTP_PACK_SERVER} \
-    PLATFORM=${PLATFORM}
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends --no-install-suggests \
+       	zip \
+        unzip \
+        telnet \
+        iproute2 \
+	sudo && rm -rf /var/lib/apt/lists/*
 
-COPY scripts/*.sh /usr/local/bin/
+# copy the jdk and product packs
+COPY ${FILES}/${WSO2_SERVER_PACK} ${FILES}/${JDK_ARCHIVE} ${INSTALLATION_DIRECTORY}/
 
-# Execute configuration script
-RUN bash /usr/local/bin/image-config.sh
+# unzip the jdk and the product pack and set permissions
+RUN unzip -q ${INSTALLATION_DIRECTORY}/${WSO2_SERVER_PACK} -d ${INSTALLATION_DIRECTORY}/ \
+        && mkdir -p ${JAVA_HOME} \
+        && tar -xf ${INSTALLATION_DIRECTORY}/${JDK_ARCHIVE} -C ${JAVA_HOME} --strip-components=1 \
+        && rm ${INSTALLATION_DIRECTORY}/${WSO2_SERVER_PACK} \
+        && rm ${INSTALLATION_DIRECTORY}/${JDK_ARCHIVE}
 
-USER wso2user
-WORKDIR /mnt
+# set the working directory
+WORKDIR ${INSTALLATION_DIRECTORY}
 
-# Expose transport ports
-EXPOSE 7611 7711 9763 9443 9611 9711
+# set java home and path variables
+ENV HOME=${INSTALLATION_DIRECTORY} JAVA_HOME=${JAVA_HOME} PATH=$JAVA_HOME/bin:$PATH WSO2_SERVER=${WSO2_SERVER} \
+        WSO2_SERVER_VERSION=${WSO2_SERVER_VERSION}
 
-ENTRYPOINT ["/usr/local/bin/init.sh"]
+# expose ports
+EXPOSE 9763 9443 9160 7711 7611
+
+ENTRYPOINT exec ${HOME}/${WSO2_SERVER}-${WSO2_SERVER_VERSION}/bin/wso2server.sh
