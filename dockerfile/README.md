@@ -1,33 +1,42 @@
 # Dockerfile for WSO2 Data Analytics Server #
-The Dockerfile defines the resources and instructions to build the Docker images with the WSO2 products and runtime configurations.
 
-## Try it out
-Quick steps to build the WSO2 Data Analytics Server docker image and run in your local machine
+The Dockerfile defines the resources and instructions to build the Docker image for WSO2 Data Analytics Server 3.1.0.
 
-The cloned local copy of WSO2 Dockerfiles will be referred as `DOCKERFILES_HOME`.
+## Quickstart guide
 
-* Add product packs and dependencies
-    - Download and copy JDK 1.7 ([jdk-7u80-linux-x64.tar.gz](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)) pack to `<DOCKERFILES_HOME>/common/provision/default/files`.
-    - Download the WSO2 Data Analytics Server zip file (http://wso2.com/products/data-analytics-server/) and copy it to `<DOCKERFILES_HOME>/common/provision/default/files`.
+ Steps to build the WSO2 Data Analytics Server 3.1.0 Docker image and run in your local machine are as follows:
+ 
+ The local copy of the `Dockerfile` directory will be referred as, `DOCKERFILE_HOME`.
+ 
+ * Create a directory named `files` inside `DOCKERFILE_HOME`
+     - This will result in a directory structure `<DOCKERFILE_HOME>/files`.
+ 
+ * Add the JDK and WSO2 API Manager distributions
+     - Download JDK 1.8 (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and copy it to `<DOCKERFILE_HOME>/files`.
+     - Download the WSO2 Data Analytics Server 3.1.0 distribution (https://wso2.com/analytics) and copy it to `<DOCKERFILE_HOME>/files`.
+ 
+ * Build the Docker image
+     - Navigate to `<DOCKERFILE_HOME>` directory.
+     - Execute the `docker build` command as shown below;
+         + `docker build -t wso2das:3.1.0 files/`
+ 
+ * Docker run
+     - Run the WSO2 Data Analytics Server 3.1.0 Docker container as follows;
+         + `docker run -it wso2das:3.1.0`
+         
+   ![Docker run output](quickstart/output.png)
+ 
+ * Access management console
+     -  To access the management console, use the Docker host IP and port 9443.
+         + `https://<DOCKER_HOST_IP>:9443/carbon`
+     -  To access the store and publisher, use the Docker host IP, port 9443 and store / publisher contexts.
+         + `https://<DOCKER_HOST_IP>:9443/store`
+         + `https://<DOCKER_HOST_IP>:9443/publisher`
 
-* Build the docker image
-    - Navigate to `<DOCKERFILES_HOME>/wso2das`.
-    - Execute `build.sh` script and provide the product version.
-        + `./build.sh -v 3.0.1`
+## Docker command usage references
 
-* Docker run
-    - Navigate to `<DOCKERFILES_HOME>/wso2das`.
-    - Execute `run.sh` script and provide the product version.
-        + `./run.sh -v 3.0.1`
+* [Docker build command reference] (https://docs.docker.com/engine/reference/commandline/build/)
 
-* Access management console
-    -  To access the management console, use the docker host IP and port 9443.
-        + `https://<DOCKER_HOST_IP>:9443/carbon`
+* [Dockerfile reference] (https://docs.docker.com/engine/reference/builder/)
 
-## Detailed Configuration
-
-* [Introduction] (https://docs.wso2.com/display/DF120/Introduction)
-
-* [Building docker images] (https://docs.wso2.com/display/DF120/Building+Docker+Images)
-
-* [Running docker images] (https://docs.wso2.com/display/DF120/Running+WSO2+Docker+Images)
+* [Docker run command reference] (https://docs.docker.com/engine/reference/run/)
