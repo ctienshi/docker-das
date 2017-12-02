@@ -32,12 +32,12 @@ ARG JDK_ARCHIVE=jdk-8u*-linux-x64.tar.gz
 ARG JAVA_HOME=${USER_HOME}/java
 
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends --no-install-suggests \
+    	&& apt-get install -y --no-install-recommends --no-install-suggests \
        	zip \
         unzip \
         telnet \
         iproute2 \
-	sudo && rm -rf /var/lib/apt/lists/*
+    	sudo && rm -rf /var/lib/apt/lists/*
 
 # creates the user
 RUN useradd --system --create-home --home-dir ${USER_HOME} --no-log-init ${USER}
@@ -51,9 +51,9 @@ RUN unzip -q ${USER_HOME}/${WSO2_SERVER_PACK} -d ${USER_HOME}/ \
         && tar -xf ${USER_HOME}/${JDK_ARCHIVE} -C ${JAVA_HOME} --strip-components=1 \
         && rm ${USER_HOME}/${WSO2_SERVER_PACK} \
         && rm ${USER_HOME}/${JDK_ARCHIVE} \
-	    && chgrp -R 0 ${USER_HOME} \
-	    && chown -R ${USER} ${USER_HOME} \
-	    && chmod -R 0774 ${USER_HOME}
+	&& chgrp -R 0 ${USER_HOME} \
+	&& chown -R ${USER} ${USER_HOME} \
+	&& chmod -R 0774 ${USER_HOME}
 
 # set the user and work directory
 USER ${USER}
