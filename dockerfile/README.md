@@ -17,12 +17,15 @@ The Dockerfile defines the resources and instructions to build the Docker image 
  
  * Build the Docker image
      - Navigate to `<DOCKERFILE_HOME>` directory.
-     - Execute the `docker build` command as shown below;
+     - Execute the `docker build` command as shown below:
          + `docker build -t wso2das:3.1.0 .`
  
  * Docker run
      - Run the WSO2 Data Analytics Server 3.1.0 Docker container as follows;
-         + `docker run -it wso2das:3.1.0`
+         + `docker run -it -p 9763:9763 -p 9443:9443 wso2das:3.1.0`
+         
+      **Note**: Here, only ports 9763 (HTTP servlet transport) and 9443 (HTTPS servlet transport) have been mapped to Docker host ports.
+      You may map other container service ports, which have been exposed to Docker host ports, as desired.
          
    ![Docker run output](quickstart/output.png)
  
