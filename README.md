@@ -1,33 +1,20 @@
-# Dockerfile for WSO2 Data Analytics Server #
-The Dockerfile defines the resources and instructions to build the Docker images with the WSO2 products and runtime configurations.
+# WSO2 Data Analytics Server Docker Artifacts
 
-## Try it out
-Quick steps to build the WSO2 Data Analytics Server docker image and run in your local machine
+This repository contains following Docker artifacts:
+- WSO2 Data Analytics Server Dockerfile
+- WSO2 Data Analytics Server Docker Compose File
 
-The cloned local copy of WSO2 Dockerfiles will be referred as `DOCKERFILES_HOME`.
+## Quickstart guide
 
-* Add product packs and dependencies
-    - Download and copy JDK 1.7 ([jdk-7u80-linux-x64.tar.gz](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)) pack to `<DOCKERFILES_HOME>/common/provision/default/files`.
-    - Download the WSO2 Data Analytics Server zip file (http://wso2.com/products/data-analytics-server/) and copy it to `<DOCKERFILES_HOME>/common/provision/default/files`.
+Execute following command to clone the repository:
 
-* Build the docker image
-    - Navigate to `<DOCKERFILES_HOME>/wso2das`.
-    - Execute `build.sh` script and provide the product version.
-        + `./build.sh -v 3.0.1`
+```bash
+git clone https://github.com/wso2/docker-das.git
+```
 
-* Docker run
-    - Navigate to `<DOCKERFILES_HOME>/wso2das`.
-    - Execute `run.sh` script and provide the product version.
-        + `./run.sh -v 3.0.1`
+Checkout required product version branch:
 
-* Access management console
-    -  To access the management console, use the docker host IP and port 9443.
-        + `https://<DOCKER_HOST_IP>:9443/carbon`
-
-## Detailed Configuration
-
-* [Introduction] (https://docs.wso2.com/display/DF120/Introduction)
-
-* [Building docker images] (https://docs.wso2.com/display/DF120/Building+Docker+Images)
-
-* [Running docker images] (https://docs.wso2.com/display/DF120/Running+WSO2+Docker+Images)
+```bash
+git branch
+git checkout <product-version>
+```
