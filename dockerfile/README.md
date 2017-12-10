@@ -11,6 +11,8 @@ The Dockerfile defines the resources and instructions to build the Docker image 
  * Add the JDK and WSO2 Data Analytics Server distributions
      - Download JDK 1.8 (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and copy it to `<DOCKERFILE_HOME>/files`.
      - Download the WSO2 Data Analytics Server 3.1.0 distribution (https://wso2.com/analytics) and copy it to `<DOCKERFILE_HOME>/files`.
+   Please refer [WSO2 Update Manager documentation](https://docs.wso2.com/display/ADMIN44x/Updating+WSO2+Products) to obtained the WSO2 Data Analytics Server 3.1.0
+   with latest bug fixes and updates.
  
  * Build the Docker image
      - Navigate to `<DOCKERFILE_HOME>` directory.
