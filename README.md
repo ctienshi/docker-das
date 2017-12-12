@@ -1,20 +1,7 @@
-# WSO2 Data Analytics Server Docker Artifacts
+# WSO2 Data Analytics Server Docker Resources
 
-This repository contains following Docker artifacts:
+This repository contains following Docker resources:
+
 - WSO2 Data Analytics Server Dockerfile
-- WSO2 Data Analytics Server Docker Compose File
 
-## Quickstart guide
-
-Execute following command to clone the repository:
-
-```bash
-git clone https://github.com/wso2/docker-das.git
-```
-
-Checkout required product version branch:
-
-```bash
-git branch
-git checkout <product-version>
-```
+The WSO2 Data Analytics Server Dockerfile builds a generic Docker image for deploying Data Analytics Server in containerized environments. It includes the JDK, product distribution and a collection of utility libraries. Configurations, JDBC driver, extensions and other deployable artifacts are designed to be provided via volume mounts.
