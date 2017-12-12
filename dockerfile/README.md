@@ -2,7 +2,7 @@
 
 The Dockerfile defines the resources and instructions to build the Docker image for WSO2 Data Analytics Server 3.1.0.
 
-## Build and run
+## How to build an image and run
 
  Follow the steps to build the WSO2 Data Analytics Server 3.1.0 Docker image and run in your local machine.
  
@@ -25,12 +25,10 @@ The Dockerfile defines the resources and instructions to build the Docker image 
          
        **Note**: Here, only port 9443 (HTTPS servlet transport) has been mapped to a Docker host port.
        You may map other container service ports, which have been exposed to Docker host ports, as desired.
-         
-   ![Docker run output](quickstart/output.png)
  
  * Access management console:
      -  To access the management console, use the Docker host IP and port 9443.
-         + `https://<DOCKER_HOST_IP>:9443/carbon`
+         + `https://<DOCKER_HOST>:9443/carbon`
 
 ## How to update configurations
 
